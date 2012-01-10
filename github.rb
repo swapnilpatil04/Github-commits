@@ -63,4 +63,3 @@ class Github
     end
   end
 end
-#gh = Github.new("https://api.github.com/repos/joshsoftware/khoj/commits")
