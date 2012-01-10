@@ -1,25 +1,19 @@
-require "new_github.rb"
+require "./github.rb"
 require "test/unit"
-
-
 class TestGithub < Test::Unit::TestCase
-
+include(Github_methods)
   def test_simple
-    #test code for check how much commit on given true date
-    assert_equal(1, Github.new("https://api.github.com/repos/joshsoftware/khoj/commits").getComments_onDate("2011-12-26"))
-    #test code for check commits on wrong date
-    assert_equal(nil, Github.new("https://api.github.com/repos/joshsoftware/khoj/commits").getComments_onDate("2009-12-26"))
-    #test code for check commits on wrong url
-    assert_equal(nil, Github.new("https://api.github.com/repos/joshsoftware/").getComments_onDate("2011-12-26"))
-    #test code for check how much commits given by given true name and true date
-    assert_equal(1, Github.new("https://api.github.com/repos/joshsoftware/khoj/commits").checkName_date("2011-12-26","swapnil"))
-    #test code for check how much commits given by given wrong name and true date
-    assert_equal(0, Github.new("https://api.github.com/repos/joshsoftware/khoj/commits").checkName_date("2011-12-26","swapnil123"))
-    #test code for true url checking
-    assert_equal(true, Github.new("https://api.github.com/repos/joshsoftware/khoj/commits").check_url("https://api.github.com/repos/joshsoftware/khoj/commits"))
-    #test code for wrong url checking
-    assert_equal(false, Github.new("https://api.gits/joshsoftware/khoj/commits").check_url("https://api.gits/joshsoftware/khoj/commits"))
-    #assert_equal(6,6 )
+    #test code true Url fetch data or not
+    assert_equal(Array, Module_class.new().request_url("https://api.github.com/repos/joshsoftware/khoj/commits").class)
+    #test code false Url fetch data or not
+    assert_equal({"message"=>"Not Found"}, Module_class.new().request_url("https://api.github.com/repos/jos123hsoftware/khoj/commitsasd"))
+    #test url is valid or not for non valid url
+    assert_equal(nil, Module_class.new().request_url("/api.github.com/repos/joshsoftware/khoj/commits"))
+    #test code for add_data_hash method if key not present in hash then it returns 1
+    assert_equal(1, Module_class.new().hash_data_add({},'12'))
+    #test code for add_data_hash method if key present in hash then increment the key value
+    assert_equal(4, Module_class.new().hash_data_add({'12' => 3},'12'))
+    #test code for add_data_hash method if key present in hash then increment the key value
+    assert_equal(Hash, Github.new("https://api.github.com/repos/joshsoftware/khoj/commits").data_operation().class)
   end
-
 end
